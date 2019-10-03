@@ -4,10 +4,14 @@
   "license": "MIT",
   "main": "build/index.js",
   "scripts": {
-    "clean": "rm -rf ./node_modules/",
-    "configure": "yarn install",
+    "clean": "rm -rf ./typings/; rm -rf ./node_modules/",
+    "configure": "yarn install; typings install --global;",
     "build": "tsc",
-    "test": "mocha --require ts-node/register 'test/**/*.test.ts'"
+    "test": "mocha --require ts-node/register 'test/**/*.test.ts'",
+    "cover": "istanbul cover _mocha",
+    "coverwin": "istanbul cover node_modules/mocha/bin/_mocha",
+    "who": "node src/whoDidThat.js",
+    "email": "node src/email.js"
   },
   "devDependencies": {
     "@types/chai": "^4.0.8",
@@ -16,8 +20,11 @@
     "@types/request-promise-native": "^1.0.2",
     "@types/node": "^12.7.7",
     "chai": "^4.1.2",
+    "joi": "^10.0.6",
     "mocha": "^4.1.0",
+    "mochawesome": "^1.5.2",
     "ts-node": "^8.4.1",
-    "typescript": "^3.5.X"
+    "typescript": "^3.5.X",
+    "istanbul": "^0.4.5"
   }
 }
