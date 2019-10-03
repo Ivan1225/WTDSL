@@ -1,0 +1,9 @@
+digraph G {
+
+Foo[shape=square]
+
+Bar[shape=square]
+
+Bar->Foo
+
+}

@@ -1,0 +1,9 @@
+digraph G {
+
+Fido[shape=circle]
+
+Biff[shape=square]
+
+Fido->Biff
+
+}
