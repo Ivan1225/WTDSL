@@ -7,7 +7,8 @@
     "clean": "rm -rf ./node_modules/",
     "configure": "yarn install",
     "build": "tsc",
-    "test": "mocha --require ts-node/register 'test/**/*.test.ts'"
+    "test": "mocha --require ts-node/register 'test/**/*.test.ts'",
+    "main": "node src/main.js"
   },
   "devDependencies": {
     "@types/chai": "^4.0.8",
