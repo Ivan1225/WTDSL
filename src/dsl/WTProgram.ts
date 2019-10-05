@@ -1,5 +1,6 @@
 import WithinStack from "../libs/WithinStack";
 import Program from "../ast/Program";
+import Tokenizer from "../libs/Tokenizer";
 
 export class WTProgram {
 
@@ -10,9 +11,8 @@ export class WTProgram {
     /**
      *  fileName: input program file path
      */
-    constructor(filePath) {
-        // TODO:
-        // using tokenizer to get token list of file
+    constructor(filePath: string) {
+        Tokenizer.makeTokenizer(filePath)
     }
 
     /**
