@@ -15,16 +15,19 @@
   },
   "devDependencies": {
     "@types/chai": "^4.0.8",
-    "@types/mocha": "^2.2.46",
     "@types/core-js": "^0.9.35",
-    "@types/request-promise-native": "^1.0.2",
+    "@types/mocha": "^2.2.46",
     "@types/node": "^12.7.7",
+    "@types/request-promise-native": "^1.0.2",
     "chai": "^4.1.2",
+    "istanbul": "^0.4.5",
     "joi": "^10.0.6",
     "mocha": "^4.1.0",
     "mochawesome": "^1.5.2",
     "ts-node": "^8.4.1",
-    "typescript": "^3.5.X",
-    "istanbul": "^0.4.5"
+    "typescript": "^3.5.X"
+  },
+  "dependencies": {
+    "puppeteer": "^1.20.0"
   }
 }
