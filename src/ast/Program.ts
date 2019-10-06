@@ -37,6 +37,7 @@ export default class Program extends Node {
 		for (var s of this.statements) {
 			await s.evaluate();
 		}
-		await browser.close();
+        await browser.close();
+        Node.printResult();
     }
 }

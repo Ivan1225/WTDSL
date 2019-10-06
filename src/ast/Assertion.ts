@@ -3,6 +3,7 @@ import Tokenizer from "../libs/Tokenizer";
 import Value, { AtrributeName } from "./Value";
 import Tokens from "../libs/Tokens";
 import { ParserError } from "../errors/ParserError";
+import { checkSelector } from "../libs/Utils";
 
 export default class Assertion extends Node {
    
@@ -46,8 +47,30 @@ export default class Assertion extends Node {
         this.expectValue = Value.getValue(tokenizer);
     }    
     
-    public evaluate() {
-        throw new Error("Method not implemented.");
+    public async evaluate() {
+        const selector: string = Node.selector;
+        const page = Node.page;
+        await page.$$eval(selector, CheckSelector);
+        let attributeVal = await page.$eval(selector, e => e.getAttribute(this.targetAttributeName));
+        let containsCond = await page.$eval(selector, e => e.contains(this.expectValue));
+        switch (this.assertionType) {
+            case AssertionType.Be:
+                this.assertionHelper(attributeVal === this.expectValue);
+                break;
+            case AssertionType.NotBe:
+                this.assertionHelper(attributeVal !== this.expectValue);
+                break;
+            case AssertionType.Contain:
+                this.assertionHelper(containsCond);
+                break;
+            case AssertionType.NotContain:
+                this.assertionHelper(!containsCond);
+                break;
+        }
+    }
+
+    private assertionHelper(cond) {
+        cond ? Node.testPass() : Node.testFail();
     }
 
 }
