@@ -15,7 +15,7 @@ export default class Tokens {
 
     public static IS = "is";
 
-    public static CLICK = "CLick";
+    public static CLICK = "Click";
 
     public static SHOULD = "should";
 

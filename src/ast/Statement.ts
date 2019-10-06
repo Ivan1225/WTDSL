@@ -7,6 +7,7 @@ import Name from './Name';
 import Within from './Within';
 import Select from './Select';
 import Wait from './wait';
+import Click from './Click';
 
 export default abstract class Statement extends Node {
 
@@ -19,7 +20,7 @@ export default abstract class Statement extends Node {
             case Tokens.SELECT:
                 return new Select();
             case Tokens.CLICK:
-                return null;
+                return new Click();
             case Tokens.WAIT:
                 return new Wait();
             case Tokens.FILL:
