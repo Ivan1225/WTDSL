@@ -6,7 +6,7 @@ import Tokenizer from '../libs/Tokenizer';
 
 export default class Program extends Node {
 
-    statments: Node[] = [];
+    statements: Node[] = [];
     
     public parse(tokenizer: Tokenizer){
         console.log("in program parse")
@@ -18,7 +18,7 @@ export default class Program extends Node {
         while(tokenizer.hasNext() && tokenizer.top() !== null) {
             let s: Node = Statement.getSubStatement(tokenizer);
             s.parse(tokenizer);
-            this.statments.push(s);
+            this.statements.push(s);
         }
 
     }
