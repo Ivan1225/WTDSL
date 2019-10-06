@@ -6,7 +6,7 @@ Click
 Wait 5
 Select {button[data-target="#ubc7-global-menu"]}
 Click
-Expect page should contain ".expand.in.collapse"
+Expect [text] should contain ".expand.in.collapse"
 Within {.expand.in.collapse}
 Select {input}
 Fill "cpsc"
