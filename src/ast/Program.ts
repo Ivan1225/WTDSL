@@ -3,27 +3,40 @@ import Statement from "./Statement";
 import Tokens from '../libs/Tokens';
 import { ParserError } from '../errors/ParserError';
 import Tokenizer from '../libs/Tokenizer';
+const puppeteer = require('puppeteer');
 
 export default class Program extends Node {
 
-    statments: Statement[] = [];
+    statements: Statement[] = [];
     
-    parse(tokenizer: Tokenizer){
+    public parse(tokenizer: Tokenizer){
         console.log("in program parse")
-        // first statment must be Visit
+        // first statement must be Visit
         if (tokenizer.top() !== Tokens.VISIT) {
-            throw new ParserError("Must start from visit statment");
+            throw new ParserError("Must start from visit statement");
         }
 
         while(tokenizer.hasNext()) {
             let s: Statement = Statement.getSubStatement(tokenizer);
             s.parse(tokenizer);
-            this.statments.push(s);
+            this.statements.push(s);
         }
 
     }
 
-    public evaluate() {
-        
+    public async evaluate() {
+		const browser = await puppeteer.launch({
+			headless: true,
+			args: [
+				'--proxy-server="direct://"',
+				'--proxy-bypass-list=*'
+			]
+		});
+		const page = await browser.newPage();
+		Node.setPage(page);
+		for (var s of this.statements) {
+			await s.evaluate();
+		}
+		await browser.close();
     }
 }

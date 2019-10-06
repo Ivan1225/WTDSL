@@ -30,10 +30,10 @@ async function shouldBe(a, b) {
   const page = await browser.newPage();
   await page.goto('https://www.ubc.ca');
   await page.waitFor(5000);
-  selector =  ''
+  let selector =  ''
   selector = '#menu-about'
   await page.$$eval(selector, CheckSelector);
-  attribute = await page.$eval(selector, e => e.text);
+  let attribute = await page.$eval(selector, e => e.text);
   shouldBe(attribute, "About UBC");
   await page.click(selector);
   await page.waitFor(2000);
@@ -41,7 +41,7 @@ async function shouldBe(a, b) {
   await page.$$eval(selector, CheckSelector);
   await page.click(selector);
   await page.waitFor(2000);
-  within = '.expand.in.collapse';
+  let within = '.expand.in.collapse';
   selector = 'input.input-xlarge.search-query';
   await page.$$eval(within + ' ' + selector, CheckSelector);
   await page.type(within + ' ' + selector, "cpsc");

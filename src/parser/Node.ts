@@ -1,4 +1,4 @@
-import Tokenizer from "./Tokenizer";
+//import Tokenizer from "./Tokenizer";
 
 export abstract class Node {
 
@@ -8,7 +8,7 @@ export abstract class Node {
 
     abstract compile();
 
-    abstract parse(context: Tokenizer);
+    //abstract parse(context: Tokenizer);
 
     constructor() {
         this.children = [];
