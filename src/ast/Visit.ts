@@ -11,7 +11,7 @@ export default class Visit extends Node{
       this.url = tokenizer.pop().replace(/"/g,"");
 
       if (!this.validURL(this.url)) {
-        throw new ParserError("Error: Invalid URL at line ${currentLine}")
+        throw new ParserError(`Invalid value at line ${currentLine}.`);
       }
     }
 
