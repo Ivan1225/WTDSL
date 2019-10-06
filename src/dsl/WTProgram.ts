@@ -6,7 +6,7 @@ export class WTProgram {
 
     source: string;
     tokenizer: Tokenizer;
-    symbolTables: Map<string, any>;
+    static variablesTable: Map<string, any>;
     withinStack: WithinStack<string>;
 
     /**
@@ -26,7 +26,7 @@ export class WTProgram {
             wtProgram.parse(this.tokenizer);
             wtProgram.evaluate();
         } catch(e){
-            console.log("some error")
+            console.log(e)
         }
     }
 

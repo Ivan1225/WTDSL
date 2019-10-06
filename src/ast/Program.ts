@@ -6,17 +6,17 @@ import Tokenizer from '../libs/Tokenizer';
 
 export default class Program extends Node {
 
-    statments: Statement[] = [];
+    statments: Node[] = [];
     
-    parse(tokenizer: Tokenizer){
+    public parse(tokenizer: Tokenizer){
         console.log("in program parse")
         // first statment must be Visit
         if (tokenizer.top() !== Tokens.VISIT) {
             throw new ParserError("Must start from visit statment");
         }
 
-        while(tokenizer.hasNext()) {
-            let s: Statement = Statement.getSubStatement(tokenizer);
+        while(tokenizer.hasNext() && tokenizer.top() !== null) {
+            let s: Node = Statement.getSubStatement(tokenizer);
             s.parse(tokenizer);
             this.statments.push(s);
         }

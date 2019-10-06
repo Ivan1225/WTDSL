@@ -3,11 +3,14 @@ import Tokenizer from "../libs/Tokenizer";
 import Tokens from '../libs/Tokens';
 import { ParserError } from '../errors/ParserError';
 import Visit from './Visit';
+import Name from './Name';
 
 export default abstract class Statement extends Node {
 
-    public static getSubStatement(tokenizer: Tokenizer): Statement {
-        switch(tokenizer.top()) {
+    public static getSubStatement(tokenizer: Tokenizer) {
+        let nextToken = tokenizer.top();
+        let currentLine = tokenizer.getLine();
+        switch(nextToken) {
             case Tokens.VISIT:
                 return new Visit();
             case Tokens.SELECT:
@@ -21,11 +24,11 @@ export default abstract class Statement extends Node {
             case Tokens.EXPECT:
                 return null;
             case Tokens.VALUE:
-                return null;
+                return new Name();
             case Tokens.WITHIN:
                 return null;
             default:
-                throw new ParserError("Unrecognizable token: ${nextToken}");
+                throw new ParserError(`Unrecognizable token: ${nextToken} at line ${currentLine}`);
         }
     }
 

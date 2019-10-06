@@ -27,13 +27,22 @@ export default class Tokens {
 
     public static NOT = "not";
 
-    public static Contain  = "contain";
+    public static CONTAIN  = "contain";
     
-    public static ATTRIBUTE = "\[.*\]";
+    public static ATTRIBUTE = "^\\[.*\\]";
 
     public static FROM = "from";
 
-    public static STRING = "\".*\"";
+    public static STRING = "^\".*\"";
 
-    public static NUMMBER = "[0-9]+";
+    public static NUMMBER = "^[0-9]+";
+
+    public static VARIABLENAME = "^[a-zA-Z0-9_-]+";
+
+    public static STRINGSTART= "^\".*";
+   
+    public static STRINGMIDDLE= "^.*";
+
+    public static STRINGEND= "^.*\"";
+
 }
