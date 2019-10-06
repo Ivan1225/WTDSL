@@ -7,11 +7,7 @@ const puppeteer = require('puppeteer');
 
 export default class Program extends Node {
 
-<<<<<<< HEAD
-    statements: Statement[] = [];
-=======
     statements: Node[] = [];
->>>>>>> parser
     
     public parse(tokenizer: Tokenizer){
         console.log("in program parse")
