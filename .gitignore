@@ -70,3 +70,4 @@ npm-debug.log
 mochawesome-reports/
 **/mochawesome-report/
 .idea/
+/.vs/slnx.sqlite
