@@ -6,11 +6,12 @@ export default class Visit extends Node{
     url: string;
 
     public parse(tokenizer: Tokenizer) {
+      let currentLine = tokenizer.getLine();
       tokenizer.pop();
       this.url = tokenizer.pop().replace(/"/g,"");
 
       if (!this.validURL(this.url)) {
-        throw new ParserError("Invalid URL");
+        throw new ParserError(`Invalid value at line ${currentLine}.`);
       }
     }
 

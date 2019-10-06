@@ -7,7 +7,11 @@ const puppeteer = require('puppeteer');
 
 export default class Program extends Node {
 
+<<<<<<< HEAD
     statements: Statement[] = [];
+=======
+    statements: Node[] = [];
+>>>>>>> parser
     
     public parse(tokenizer: Tokenizer){
         console.log("in program parse")
@@ -16,8 +20,8 @@ export default class Program extends Node {
             throw new ParserError("Must start from visit statement");
         }
 
-        while(tokenizer.hasNext()) {
-            let s: Statement = Statement.getSubStatement(tokenizer);
+        while(tokenizer.hasNext() && tokenizer.top() !== null) {
+            let s: Node = Statement.getSubStatement(tokenizer);
             s.parse(tokenizer);
             this.statements.push(s);
         }

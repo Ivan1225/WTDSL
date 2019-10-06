@@ -3,29 +3,37 @@ import Tokenizer from "../libs/Tokenizer";
 import Tokens from '../libs/Tokens';
 import { ParserError } from '../errors/ParserError';
 import Visit from './Visit';
+import Name from './Name';
+import Within from './Within';
+import Select from './Select';
+import Wait from './wait';
+import Click from './Click';
+import Assertion from './Assertion';
 
 export default abstract class Statement extends Node {
 
-    public static getSubStatement(tokenizer: Tokenizer): Statement {
-        switch(tokenizer.top()) {
+    public static getSubStatement(tokenizer: Tokenizer) {
+        let nextToken = tokenizer.top();
+        let currentLine = tokenizer.getLine();
+        switch(nextToken) {
             case Tokens.VISIT:
                 return new Visit();
             case Tokens.SELECT:
-                return null;
+                return new Select();
             case Tokens.CLICK:
-                return null;
+                return new Click();
             case Tokens.WAIT:
-                return null;
+                return new Wait();
             case Tokens.FILL:
                 return null;
             case Tokens.EXPECT:
-                return null;
+                return new Assertion();
             case Tokens.VALUE:
-                return null;
+                return new Name();
             case Tokens.WITHIN:
-                return null;
+                return new Within();
             default:
-                throw new ParserError("Unrecognizable token: ${nextToken}");
+                throw new ParserError(`Unrecognizable token: ${nextToken} at line ${currentLine}`);
         }
     }
 

@@ -12,5 +12,5 @@ Select {input}
 Fill "cpsc"
 Select {button}
 Click
-End within
+EndWithin
 Wait 5
