@@ -8,6 +8,7 @@ import Within from './Within';
 import Select from './Select';
 import Wait from './wait';
 import Click from './Click';
+import Assertion from './Assertion';
 
 export default abstract class Statement extends Node {
 
@@ -26,7 +27,7 @@ export default abstract class Statement extends Node {
             case Tokens.FILL:
                 return null;
             case Tokens.EXPECT:
-                return null;
+                return new Assertion();
             case Tokens.VALUE:
                 return new Name();
             case Tokens.WITHIN:
