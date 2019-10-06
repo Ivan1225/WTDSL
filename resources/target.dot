@@ -1,5 +1,0 @@
-digraph G {
-Fido[shape=circle]
-Biff[shape=circle]
-Fido->Biff
-}
