@@ -3,7 +3,7 @@ import Tokenizer from "../libs/Tokenizer";
 import Value, { AtrributeName } from "./Value";
 import Tokens from "../libs/Tokens";
 import { ParserError } from "../errors/ParserError";
-import { checkSelector } from "../libs/Utils";
+import Utils from "../libs/Utils";
 
 export default class Assertion extends Node {
    
@@ -50,7 +50,7 @@ export default class Assertion extends Node {
     public async evaluate() {
         const selector: string = Node.selector;
         const page = Node.page;
-        await page.$$eval(selector, CheckSelector);
+        await page.$$eval(selector, Utils.checkSelector);
         let attributeVal = await page.$eval(selector, e => e.getAttribute(this.targetAttributeName));
         let containsCond = await page.$eval(selector, e => e.contains(this.expectValue));
         switch (this.assertionType) {
