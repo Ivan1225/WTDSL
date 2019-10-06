@@ -17,7 +17,7 @@ export default class Select extends Node {
             throw new ParserError(`Invalid Selector format at line ${currentLine}. Parser was expecting: [{selector}] and received: [${token}] instead`);
         }
 
-        this.selector = Utils.trimCurlyBraces(tokenizer.pop());
+        this.selector = Utils.trimBrackets(tokenizer.pop());
     }    
     
     public evaluate() {

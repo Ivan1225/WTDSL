@@ -3,6 +3,10 @@ export default class Tokens {
 
     public static ENDWITHIN = "EndWithin";
 
+    public static FOR = "For";
+
+    public static ENDFOR = "EndFor";
+
     public static VISIT = "Visit";
 
     public static SELECT = "Select";
@@ -12,6 +16,8 @@ export default class Tokens {
     public static VALUE= "Value";
 
     public static OF = "of";
+
+    public static IN = "in";
 
     public static IS = "is";
 
