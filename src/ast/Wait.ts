@@ -18,6 +18,7 @@ export default class Wait extends Node{
         }
     }
 
-    public evaluate() {
+    public async evaluate() {
+		await Node.page.waitFor(this.latency);
     }
 }

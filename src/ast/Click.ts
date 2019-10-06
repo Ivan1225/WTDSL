@@ -7,8 +7,8 @@ export default class Click extends Node {
         tokenizer.pop();
     }    
     
-    public evaluate() {
-        throw new Error("Method not implemented.");
+    public async evaluate() {
+        await Node.page.click(Node.selector);
     }
 
 }

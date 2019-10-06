@@ -2,6 +2,7 @@ import Tokenizer from "../libs/Tokenizer";
 import Tokens from "../libs/Tokens";
 import { ParserError } from "../errors/ParserError";
 import Utils from "../libs/Utils";
+import {Node} from "./Node";
 
 export default class Value {
 
@@ -37,6 +38,18 @@ export default class Value {
 
         return new Value(tokenizer.pop(), ValueType.VariableName);
     }
+
+	public async evaluate() {
+		switch(this.type) {
+			case ValueType.Number || ValueType.String:
+				return this.val;
+			case ValueType.AttributeName:
+				return await Node.page.$eval(Node.selector, (e, v) => e[v], this.val);;
+			case ValueType.VariableName:
+				throw "not implemented"; //look up variable in symbol table;
+		}
+			
+	}
 }
 
 export class VariableValue extends Value {

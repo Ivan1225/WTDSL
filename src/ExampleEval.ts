@@ -4,13 +4,7 @@ let passedTests = 0;
 let failedTests = 0;
 
 function CheckSelector(nodes) {
-	if(nodes.length === 1) {
-		return nodes[0];
-	} else if(nodes.length === 0) {
-		throw 'Your selector did not match anything';
-	} else {
-		throw 'Your selector is too general and matches ' + nodes.length + ' items';
-	}
+	
 }
 async function shouldBe(a, b) {
 	if(a === b) {

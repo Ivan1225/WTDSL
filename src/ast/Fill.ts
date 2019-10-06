@@ -6,10 +6,11 @@ export default class Fill extends Node{
     value: Value;
 
     public parse(tokenizer: Tokenizer) {
-      tokenizer.pop();
-      this.value = Value.getValue(tokenizer);
+		tokenizer.pop();
+		this.value = Value.getValue(tokenizer);
     }
 
-    public evaluate() {
+    public async evaluate() {
+		await Node.page.type(Node.selector, this.value.evaluate());
     }
 }
