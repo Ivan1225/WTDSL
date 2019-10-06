@@ -4,6 +4,7 @@ import Tokens from '../libs/Tokens';
 import { ParserError } from '../errors/ParserError';
 import Visit from './Visit';
 import Name from './Name';
+import Within from './Within';
 
 export default abstract class Statement extends Node {
 
@@ -26,7 +27,7 @@ export default abstract class Statement extends Node {
             case Tokens.VALUE:
                 return new Name();
             case Tokens.WITHIN:
-                return null;
+                return new Within();
             default:
                 throw new ParserError(`Unrecognizable token: ${nextToken} at line ${currentLine}`);
         }

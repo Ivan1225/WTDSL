@@ -45,4 +45,6 @@ export default class Tokens {
 
     public static STRINGEND= "^.*\"";
 
+    public static SELECTOR = "^{.*}"
+
 }
