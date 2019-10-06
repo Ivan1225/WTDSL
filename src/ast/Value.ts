@@ -46,40 +46,24 @@ export class VariableValue extends Value {
         let token = tokenizer.top();
 
         if (token.match(Tokens.NUMMBER)) {
-            return this.getNumberValue(tokenizer);
+            return NumberValue.getNumberValue(tokenizer);
         }
 
         if (token.match(Tokens.ATTRIBUTE)) {
-            return this.getAttributeValue(tokenizer);
+            return AtrributeName.getAttributeName(tokenizer);
         }
 
         if (token.match(Tokens.STRING) || token.match(Tokens.STRINGSTART)) {
-            return this.getStringValue(tokenizer);
+            return StringValue.getStringValue(tokenizer);
         }
 
         throw new ParserError(`Invalid value at line ${currentLine}.`);
         
     }
+    
+}
 
-
-    public static getNumberValue(tokenizer: Tokenizer) {
-        if (!tokenizer.top().match(Tokens.NUMMBER)) {
-            let currentLine = tokenizer.getLine();
-            throw new ParserError(`Invalid number value at line ${currentLine}.`);
-        }
-
-        return new Value(parseInt(tokenizer.pop()), ValueType.Number);
-    }
-
-    public static getAttributeValue(tokenizer: Tokenizer) {
-        if (!tokenizer.top().match(Tokens.ATTRIBUTE)) {
-            let currentLine = tokenizer.getLine();
-            throw new ParserError(`Invalid Atrribute at line ${currentLine}.`);
-        }
-
-        return new Value(tokenizer.pop(), ValueType.Attribute);
-    }
-
+export class StringValue extends VariableValue{
     public static getStringValue(tokenizer: Tokenizer) {
         let currentLine = tokenizer.getLine();
         if (tokenizer.top().match(Tokens.STRING)) {
@@ -107,10 +91,32 @@ export class VariableValue extends Value {
     }
 }
 
+export class NumberValue extends VariableValue {
+    public static getNumberValue(tokenizer: Tokenizer) {
+        if (!tokenizer.top().match(Tokens.NUMMBER)) {
+            let currentLine = tokenizer.getLine();
+            throw new ParserError(`Invalid number value at line ${currentLine}.`);
+        }
+
+        return new Value(parseInt(tokenizer.pop()), ValueType.Number);
+    }
+}
+
+export class AtrributeName extends VariableValue {
+    public static getAttributeName(tokenizer: Tokenizer) {
+        if (!tokenizer.top().match(Tokens.ATTRIBUTE)) {
+            let currentLine = tokenizer.getLine();
+            throw new ParserError(`Invalid Atrribute at line ${currentLine}.`);
+        }
+
+        return new Value(tokenizer.pop(), ValueType.AttributeName);
+    }
+}
+
 
 export enum ValueType{
     Number = 0,
     String = 1,
-    Attribute = 2,
+    AttributeName = 2,
     VariableName = 3
 }
