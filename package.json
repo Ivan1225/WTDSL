@@ -8,10 +8,7 @@
     "configure": "yarn install; typings install --global;",
     "build": "tsc",
     "test": "mocha --require ts-node/register 'test/**/*.test.ts'",
-    "cover": "istanbul cover _mocha",
-    "coverwin": "istanbul cover node_modules/mocha/bin/_mocha",
-    "who": "node src/whoDidThat.js",
-    "email": "node src/email.js"
+    "main": "node src/main.js"
   },
   "devDependencies": {
     "@types/chai": "^4.0.8",

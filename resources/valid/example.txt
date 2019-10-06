@@ -1,0 +1,16 @@
+Visit "www.ubc.ca"
+Wait 5
+Select {#menu-about}
+Expect [text] should be "About UBC"
+Click
+Wait 5
+Select {button[data-target="#ubc7-global-menu"]}
+Click
+Expect [class] should contain "expand"
+Within {.expand.in.collapse}
+Select {input}
+Fill "cpsc"
+Select {button}
+Click
+End within
+Wait 5
