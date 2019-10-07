@@ -43,7 +43,7 @@ export default class Tokens {
 
     public static NUMMBER = "^[1-9][0-9]+";
 
-    public static VARIABLENAME = "^[a-zA-Z0-9_-]+";
+    public static VARIABLENAME = "^[1-9]\d*$";
 
     public static STRINGSTART= "^\".*";
    
