@@ -22,14 +22,15 @@ export default class Select extends Node {
     }    
     
     public async evaluate() {
-		console.log(this.selector);
-		let matches = await Node.page.$$eval(this.selector, nodes => nodes.length);
+        const prefixes =  Node.withinPrefixes;
+		const selector = prefixes ? prefixes.reduce((acc, curr) => `${curr} ${acc}`,  this.selector): this.selector
+		const matches = await Node.page.$$eval(selector, nodes => nodes.length);
 		if (matches === 1){
-			Node.setSelector(this.selector);
+			Node.setSelector(selector);
 		} else if (matches === 0) {
-			throw new EvaluationError('Your selector ' + this.selector + ' did not match anything');
+			throw new EvaluationError('Your selector ' + selector + ' did not match anything');
 		} else {
-			throw new EvaluationError('Your selector ' + this.selector + ' is too general and matches ' + matches + ' items');
+			throw new EvaluationError('Your selector ' + selector + ' is too general and matches ' + matches + ' items');
 		}
     }
 

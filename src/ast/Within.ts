@@ -33,8 +33,13 @@ export default class Within extends Node {
         }
     }    
     
-    public evaluate() {
-        throw new Error("Method not implemented.");
+    public async evaluate() {
+        Node.setSelector(this.selector);
+        Node.addWithinPrefix(this.selector);
+        for (var s of this.statements) {
+			await s.evaluate();
+		}
+        Node.removeWithinPrefix();
     }
 
 

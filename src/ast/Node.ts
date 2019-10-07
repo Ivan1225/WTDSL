@@ -5,6 +5,7 @@ export abstract class Node {
 	public static nameTable: {[key: string]: any} = {};
 	public static selector;
     public static page;
+    public static withinPrefixes: string[] = [];
     protected static testResult: {[key: string]: number} = {
         total: 0,
         pass: 0,
@@ -31,6 +32,13 @@ export abstract class Node {
     }
 	protected static setSelector(s) {
         Node.selector = s;
+    }
+
+    protected static addWithinPrefix(prefix: string) {
+        Node.withinPrefixes.push(prefix);
+    }
+    protected static removeWithinPrefix() {
+        Node.withinPrefixes.pop();
     }
     abstract parse(tokenizer: Tokenizer);
     abstract evaluate();
