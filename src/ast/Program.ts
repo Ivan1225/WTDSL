@@ -26,7 +26,7 @@ export default class Program extends Node {
 
     public async evaluate() {
 		const browser = await puppeteer.launch({
-			headless: true,
+			headless: false,
 			args: [
 				'--proxy-server="direct://"',
 				'--proxy-bypass-list=*'

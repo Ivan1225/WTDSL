@@ -10,7 +10,6 @@ export default class Wait extends Node{
       let currentLine = tokenizer.getLine();
       tokenizer.pop();
       let token = tokenizer.pop();
-
         if (token.match(Tokens.NUMMBER)) {
           this.latency = Number(token);
         } else {
@@ -19,6 +18,9 @@ export default class Wait extends Node{
     }
 
     public async evaluate() {
-		await Node.page.waitFor(this.latency);
+		console.log('begin wait');
+		let ms_latency = this.latency*1000;
+		await Node.page.waitFor(ms_latency);
+		console.log('end wait');
     }
 }

@@ -8,16 +8,6 @@ import Utils from "../libs/Utils";
 export default class Select extends Node {
 
     selector: string;
-
-	private checkSelector(nodes, s) {
-		if(nodes.length === 1) {
-			return nodes[0];
-		} else if(nodes.length === 0) {
-			throw new EvaluationError('Your selector, ' + s + ' did not match anything');
-		} else {
-			throw new EvaluationError('Your selector, ' + s + ' is too general and matches ' + nodes.length + ' items');
-		}
-	}
     
     public parse(tokenizer: Tokenizer) {
         tokenizer.pop();
@@ -28,12 +18,19 @@ export default class Select extends Node {
             throw new ParserError(`Invalid Selector format at line ${currentLine}. Parser was expecting: [{selector}] and received: [${token}] instead`);
         }
 
-        this.selector = Utils.trimCurlyBraces(tokenizer.pop());
-    }
+        this.selector = Utils.trimBrackets(tokenizer.pop());
+    }    
     
     public async evaluate() {
-		await Node.page.$$eval(this.selector, CheckSelector, this.selector);
-		Node.setSelector(this.selector);
+		console.log(this.selector);
+		let matches = await Node.page.$$eval(this.selector, nodes => nodes.length);
+		if (matches === 1){
+			Node.setSelector(this.selector);
+		} else if (matches === 0) {
+			throw new EvaluationError('Your selector ' + this.selector + ' did not match anything');
+		} else {
+			throw new EvaluationError('Your selector ' + this.selector + ' is too general and matches ' + matches + ' items');
+		}
     }
 
 
