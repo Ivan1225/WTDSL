@@ -10,6 +10,7 @@ import Wait from './wait';
 import Click from './Click';
 import Assertion from './Assertion';
 import Fill from './Fill';
+import Loop from './Loop';
 
 export default abstract class Statement extends Node {
 
@@ -33,6 +34,8 @@ export default abstract class Statement extends Node {
                 return new Name();
             case Tokens.WITHIN:
                 return new Within();
+            case Tokens.FOR:
+                return new Loop();
             default:
                 throw new ParserError(`Unrecognizable token: ${nextToken} at line ${currentLine}`);
         }

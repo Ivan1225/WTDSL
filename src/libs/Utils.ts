@@ -15,7 +15,7 @@ export default class Utils {
         return token.slice(0, length - 1);
     }
 
-    public static trimCurlyBraces(token: string) {
+    public static trimBrackets(token: string) {
         let length = token.length;
         return token.slice(1, length - 1);
     }
