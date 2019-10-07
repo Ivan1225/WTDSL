@@ -23,7 +23,7 @@ export class WTProgram {
     public run() {
         var wtProgram: Program = new Program();
         try{
-           // wtProgram.parse(this.tokenizer);
+            wtProgram.parse(this.tokenizer);
             wtProgram.evaluate();
         } catch(e){
             console.log(e)

@@ -10,7 +10,6 @@ export default class Wait extends Node{
       let currentLine = tokenizer.getLine();
       tokenizer.pop();
       let token = tokenizer.pop();
-
         if (token.match(Tokens.NUMMBER)) {
           this.latency = Number(token);
         } else {

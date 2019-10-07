@@ -9,6 +9,7 @@ import Select from './Select';
 import Wait from './wait';
 import Click from './Click';
 import Assertion from './Assertion';
+import Fill from './Fill';
 
 export default abstract class Statement extends Node {
 
@@ -25,7 +26,7 @@ export default abstract class Statement extends Node {
             case Tokens.WAIT:
                 return new Wait();
             case Tokens.FILL:
-                return null;
+                return new Fill();
             case Tokens.EXPECT:
                 return new Assertion();
             case Tokens.VALUE:

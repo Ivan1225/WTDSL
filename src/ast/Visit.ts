@@ -16,7 +16,7 @@ export default class Visit extends Node{
     }
 
     public async evaluate() {
-		await Node.page.goto(this.url);
+		  await Node.page.goto(this.url);
     }
 
     private validURL(str) {
