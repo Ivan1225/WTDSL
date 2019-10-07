@@ -13,10 +13,12 @@ export abstract class Node {
     protected static testPass() {
         Node.testResult.total += 1;
         Node.testResult.pass += 1;
+		console.log('passed test');
     }
     protected static testFail() {
         Node.testResult.total += 1;
         Node.testResult.fail += 1;
+		console.log('failed test');
     }
     protected static printResult() {
         let pass : number = Node.testResult.pass;

@@ -1,7 +1,8 @@
 Visit "https://www.ubc.ca"
 Wait 5
 Select {#menu-about}
-Expect [text] should be "About UBC"
+Value of test is "About UBC"
+Expect [text] should be test
 Click
 Wait 5
 Select {button[data-target="#ubc7-global-menu"]}
