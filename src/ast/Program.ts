@@ -20,6 +20,7 @@ export default class Program extends Node {
             let s: Node = Statement.getSubStatement(tokenizer);
             s.parse(tokenizer);
             this.statements.push(s);
+			console.log(s);
         }
 
     }

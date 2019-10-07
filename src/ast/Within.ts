@@ -23,7 +23,6 @@ export default class Within extends Node {
 
         while(tokenizer.hasNext() && tokenizer.top() !== Tokens.ENDWITHIN && tokenizer.top() !== null) {
             let s: Node = Statement.getSubStatement(tokenizer);
-            console.log(s);
             s.parse(tokenizer);
             this.statements.push(s);
         }
