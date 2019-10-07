@@ -34,7 +34,6 @@ export default class Within extends Node {
     }    
     
     public async evaluate() {
-        Node.setSelector(this.selector);
         Node.addWithinPrefix(this.selector);
         for (var s of this.statements) {
 			await s.evaluate();

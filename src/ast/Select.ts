@@ -23,8 +23,8 @@ export default class Select extends Node {
     
     public async evaluate() {
         const prefixes =  Node.withinPrefixes;
-		const selector = prefixes ? prefixes.reduce((acc, curr) => `${curr} ${acc}`,  this.selector): this.selector
-		const matches = await Node.page.$$eval(selector, nodes => nodes.length);
+		const selector = prefixes ? `${prefixes.reduce((acc, curr) => `${acc} ${curr}`,  '')} ${this.selector}`: this.selector
+        const matches = await Node.page.$$eval(selector, nodes => nodes.length);
 		if (matches === 1){
 			Node.setSelector(selector);
 		} else if (matches === 0) {
