@@ -45,7 +45,9 @@ export default class Value {
 			case ValueType.Number || ValueType.String:
 				return this.val;
 			case ValueType.AttributeName:
-				return await Node.page.$eval(Node.selector, (e, v) => e[v], this.val);;
+				let att = await Node.page.$eval(Node.selector, (e, v) => e[v], this.val);
+				return att;
+
 			case ValueType.VariableName:
 				if(this.val in Node.nameTable) {
 					return Node.nameTable[this.val];
@@ -130,7 +132,7 @@ export class AtrributeName extends VariableValue {
             throw new ParserError(`Invalid Atrribute at line ${currentLine}.`);
         }
 
-        return new Value(tokenizer.pop(), ValueType.AttributeName);
+        return new Value(Utils.trimBrackets(tokenizer.pop()), ValueType.AttributeName);
     }
 }
 

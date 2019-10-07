@@ -14,7 +14,7 @@ export default class Assertion extends Node {
     public parse(tokenizer: Tokenizer) {
         tokenizer.pop();
 
-        this.targetAttributeName = AtrributeName.getAttributeName(tokenizer);
+        this.targetAttributeName = AtrributeName.getAttributeName(tokenizer).getVal();
 
         let currentLine = tokenizer.getLine();
         let token = tokenizer.pop();
@@ -50,15 +50,19 @@ export default class Assertion extends Node {
     public async evaluate() {
         const selector: string = Node.selector;
         const page = Node.page;
-        await page.$$eval(selector, Utils.checkSelector);
-        let attributeVal = await page.$eval(selector, e => e.getAttribute(this.targetAttributeName));
-        let containsCond = await page.$eval(selector, e => e.contains(this.expectValue));
+		let resolvedValue = await this.expectValue.evaluate()
+        let attributeVal = await page.$eval(selector, (e, a) => e[a], this.targetAttributeName);
+		let containsCond = false;
+		try {
+			containsCond = await page.$eval(selector, (e, resolvedValue) => e.contains(resolvedValue), resolvedValue);
+		} catch(err) {
+		}
         switch (this.assertionType) {
             case AssertionType.Be:
-                this.assertionHelper(attributeVal === this.expectValue);
+                this.assertionHelper(attributeVal === resolvedValue);
                 break;
             case AssertionType.NotBe:
-                this.assertionHelper(attributeVal !== this.expectValue);
+                this.assertionHelper(attributeVal !== resolvedValue);
                 break;
             case AssertionType.Contain:
                 this.assertionHelper(containsCond);
