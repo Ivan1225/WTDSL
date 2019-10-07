@@ -1,6 +1,7 @@
 import Tokenizer from "../libs/Tokenizer";
 import Tokens from "../libs/Tokens";
 import { ParserError } from "../errors/ParserError";
+import { EvaluationError } from "../errors/EvaluationError";
 import Utils from "../libs/Utils";
 import {Node} from "./Node";
 
@@ -46,7 +47,14 @@ export default class Value {
 			case ValueType.AttributeName:
 				return await Node.page.$eval(Node.selector, (e, v) => e[v], this.val);;
 			case ValueType.VariableName:
-				throw "not implemented"; //look up variable in symbol table;
+				if(this.val in Node.nameTable) {
+					return Node.nameTable[this.val];
+				} else {
+					throw new EvaluationError('Variable ' + this.val + ' is undefined.');
+				}
+			default:
+				throw new EvaluationError('Unable to resolve value, ' + this.val + ' of type, ' + this.type);
+				
 		}
 			
 	}

@@ -34,7 +34,7 @@ export default class Name extends Node {
     
     
     evaluate() {
-        throw new Error("Method not implemented.");
+        Node.nameTable[this.variableName] = this.variableValue.evaluate();
     }
 
 

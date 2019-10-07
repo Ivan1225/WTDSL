@@ -2,7 +2,7 @@ import Tokenizer from "../libs/Tokenizer";
 
 export abstract class Node {
 
-	protected static names: string[] = [];
+	public static nameTable: {[key: string]: any} = {};
 	public static selector;
     public static page;
     protected static testResult: {[key: string]: number} = {

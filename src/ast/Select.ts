@@ -13,9 +13,9 @@ export default class Select extends Node {
 		if(nodes.length === 1) {
 			return nodes[0];
 		} else if(nodes.length === 0) {
-			throw new EvaluationError('Your selector' + s + 'did not match anything');
+			throw new EvaluationError('Your selector, ' + s + ' did not match anything');
 		} else {
-			throw new EvaluationError('Your selector' + s + 'is too general and matches ' + nodes.length + ' items');
+			throw new EvaluationError('Your selector, ' + s + ' is too general and matches ' + nodes.length + ' items');
 		}
 	}
     
