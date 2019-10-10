@@ -6,7 +6,7 @@ import Visit from './Visit';
 import Name from './Name';
 import Within from './Within';
 import Select from './Select';
-import Wait from './wait';
+import Wait from './Wait';
 import Click from './Click';
 import Assertion from './Assertion';
 import Fill from './Fill';
