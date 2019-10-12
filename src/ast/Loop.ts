@@ -10,14 +10,17 @@ export default class Loop extends Node {
 
     selectors: string[] = [];
     statements: Node[] = [];
-    variableName: string;
 
     public parse(tokenizer: Tokenizer) {
         tokenizer.pop();
         let currentLine = tokenizer.getLine();
 
-        this.variableName = tokenizer.pop();
         let token = tokenizer.pop();
+
+        if (!token.match(Tokens.EACH)) {
+            throw new ParserError(`Invalid format at line ${currentLine}. Parser was expecting: in and received: [${token}] instead`);
+        }
+        token = tokenizer.pop();
 
         if (!token.match(Tokens.IN)) {
             throw new ParserError(`Invalid format at line ${currentLine}. Parser was expecting: in and received: [${token}] instead`);

@@ -21,6 +21,11 @@ describe('DSL should be able to parse', () => {
         expect(output).to.be.equal(true);
     });
 
+    it('should parse a valid input with forloop', async () => {
+        let wtProgram = new WTProgram("valid/forLoopExample.txt");
+        let output = wtProgram.parse();
+        expect(output).to.be.equal(true);
+    });
     // it('should parse a valid simple input', async () => {
     //     let dotProgram = new DotProgram("valid/simple.tdot");
     //     let output = dotProgram.parse();

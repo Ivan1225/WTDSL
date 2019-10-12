@@ -19,6 +19,8 @@ export default class Tokens {
 
     public static IN = "in";
 
+    public static EACH = "each";
+
     public static IS = "is";
 
     public static CLICK = "Click";
