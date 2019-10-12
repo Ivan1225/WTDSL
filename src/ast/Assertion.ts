@@ -3,7 +3,6 @@ import Tokenizer from "../libs/Tokenizer";
 import Value, { Attribute } from "./Value";
 import Tokens from "../libs/Tokens";
 import { ParserError } from "../errors/ParserError";
-import Utils from "../libs/Utils";
 
 export default class Assertion extends Node {
    
@@ -55,10 +54,8 @@ export default class Assertion extends Node {
     }    
     
     public async evaluate() {
-        const selector: string = Node.selector;
-        const page = Node.page;
-		let resolvedValue = await this.expectValue.evaluate()
-        let attributeVal = await page.$eval(selector, (e, v) => e[v] || e.attributes[v].value, this.targetAttribute);
+        let resolvedValue = await this.expectValue.evaluate()
+        let attributeVal = await this.targetAttribute.evaluate();
         switch (this.assertionType) {
             case AssertionType.Be:
                 this.assertionHelper(attributeVal === resolvedValue);
@@ -67,10 +64,10 @@ export default class Assertion extends Node {
                 this.assertionHelper(attributeVal !== resolvedValue);
                 break;
             case AssertionType.Contain:
-                this.assertionHelper(attributeVal.includes(resolvedValue));
+                this.assertionHelper(attributeVal.toString().includes(resolvedValue));
                 break;
             case AssertionType.NotContain:
-                this.assertionHelper(!attributeVal.includes(resolvedValue));
+                this.assertionHelper(!attributeVal.toString().includes(resolvedValue));
                 break;
         }
     }

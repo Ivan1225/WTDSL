@@ -81,7 +81,7 @@ export class Attribute extends Node {
     }    
     
     async evaluate() {
-        return Node.page.$eval(Node.selector, (e, v) => e[v], this.attributeName);
+        return Node.page.$eval(Node.selector, (e, v) => e[v] || e.attributes[v].value, this.attributeName);
     }
 }
 
