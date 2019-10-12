@@ -51,12 +51,7 @@ export default class Assertion extends Node {
         const selector: string = Node.selector;
         const page = Node.page;
 		let resolvedValue = await this.expectValue.evaluate()
-        let attributeVal = await page.$eval(selector, (e, a) => e[a], this.targetAttributeName);
-		let containsCond = false;
-		try {
-			containsCond = await page.$eval(selector, (e, resolvedValue) => e.contains(resolvedValue), resolvedValue);
-		} catch(err) {
-		}
+        let attributeVal = await page.$eval(selector, (e, v) => e[v] || e.attributes[v].value, this.targetAttributeName);
         switch (this.assertionType) {
             case AssertionType.Be:
                 this.assertionHelper(attributeVal === resolvedValue);
@@ -65,10 +60,10 @@ export default class Assertion extends Node {
                 this.assertionHelper(attributeVal !== resolvedValue);
                 break;
             case AssertionType.Contain:
-                this.assertionHelper(containsCond);
+                this.assertionHelper(attributeVal.includes(resolvedValue));
                 break;
             case AssertionType.NotContain:
-                this.assertionHelper(!containsCond);
+                this.assertionHelper(!attributeVal.includes(resolvedValue));
                 break;
         }
     }

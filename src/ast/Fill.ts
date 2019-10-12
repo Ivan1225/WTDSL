@@ -11,6 +11,7 @@ export default class Fill extends Node{
     }
 
     public async evaluate() {
-		await Node.page.type(Node.selector, this.value.evaluate());
+    const value = await this.value.evaluate()
+    await Node.page.type(Node.selector, value);
     }
 }
