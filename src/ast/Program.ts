@@ -26,19 +26,27 @@ export default class Program extends Node {
     }
 
     public async evaluate() {
-		const browser = await puppeteer.launch({
-			headless: false,
-			args: [
-				'--proxy-server="direct://"',
-				'--proxy-bypass-list=*'
-			]
-		});
-		const page = await browser.newPage();
-		Node.setPage(page);
-		for (var s of this.statements) {
-			await s.evaluate();
-		}
-        await browser.close();
-        Node.printResult();
+        try {
+            const browser = await puppeteer.launch({
+                headless: false,
+                args: [
+                    '--proxy-server="direct://"',
+                    '--proxy-bypass-list=*'
+                ]
+            });
+            const page = await browser.newPage();
+            Node.setPage(page);
+            try {
+                for (var s of this.statements) {
+                    await s.evaluate();
+                }
+            } catch(e){
+                console.log('Error occured when evaluating statements: ' + e.message);
+            }
+            await browser.close();
+            Node.printResult();
+        } catch(e){
+            console.log('Error occured when evaluating program: ' + e.message);
+        }
     }
 }

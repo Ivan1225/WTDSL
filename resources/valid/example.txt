@@ -11,9 +11,9 @@ Wait 5
 Select {button[data-target="#ubc7-global-menu"]}
 Click
 Wait 5
-Expect [class] should contain "expand"
+Expect [data-toggle] should contain "collapse"
 Within {.expand.in.collapse}
-Select {input}
+Select {input.input-xlarge.search-query}
 Fill "cpsc"
 Select {button}
 Click
