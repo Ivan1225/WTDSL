@@ -10,7 +10,7 @@ export default class Wait extends Node{
       let currentLine = tokenizer.getLine();
       tokenizer.pop();
       let token = tokenizer.pop();
-        if (token.match(Tokens.NUMMBER)) {
+        if (token.match(Tokens.NUMMBERVAL)) {
           this.latency = Number(token);
         } else {
           throw new ParserError(`Invalid value at line ${currentLine}.`);

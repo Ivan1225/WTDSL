@@ -2,12 +2,12 @@ import { Node } from './Node';
 import Tokenizer from "../libs/Tokenizer";
 import Tokens from "../libs/Tokens";
 import { ParserError } from "../errors/ParserError";
-import { VariableValue } from './Value';
+import Value from './Value';
 
-export default class Name extends Node {
+export default class ValDef extends Node {
 
     variableName: string;
-    variableValue: VariableValue;
+    value: Value;
     
     parse(tokenizer: Tokenizer) {
         tokenizer.pop();
@@ -29,12 +29,15 @@ export default class Name extends Node {
             throw new ParserError(`Invalid token at line ${currentLine}. Parser was expecting: [is] and received: [${token}] instead`);
         }
 
-        this.variableValue = VariableValue.getVariableValue(tokenizer);
-    }    
+        this.value = new Value();
+        this.value.parse(tokenizer);
+    }
     
-    
-    evaluate() {
-        Node.nameTable[this.variableName] = this.variableValue.evaluate();
+    async evaluate() {
+        this.value.evaluate().then((val) => {
+            Node.nameTable[this.variableName] = val;
+            return Promise.resolve()
+        }).catch(e => {return Promise.reject(e)})
     }
 
 

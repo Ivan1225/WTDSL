@@ -3,7 +3,6 @@ import Tokenizer from "../libs/Tokenizer";
 import Tokens from '../libs/Tokens';
 import { ParserError } from '../errors/ParserError';
 import Visit from './Visit';
-import Name from './Name';
 import Within from './Within';
 import Select from './Select';
 import Wait from './wait';
@@ -11,6 +10,7 @@ import Click from './Click';
 import Assertion from './Assertion';
 import Fill from './Fill';
 import Loop from './Loop';
+import ValDef from './VALDEF';
 
 export default abstract class Statement extends Node {
 
@@ -31,7 +31,7 @@ export default abstract class Statement extends Node {
             case Tokens.EXPECT:
                 return new Assertion();
             case Tokens.VALUE:
-                return new Name();
+                return new ValDef();
             case Tokens.WITHIN:
                 return new Within();
             case Tokens.FOR:

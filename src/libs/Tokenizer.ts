@@ -35,7 +35,13 @@ export default class Tokenizer {
   }
 
   private tokenize() {
-    this.tokens = this.program.split('\n').join(' NEW_LINE ').match(/\S+/g) || [];
+    let k = '$HAHA$'
+    this.tokens = this.program.replace(/".*"/g, function(x) {
+      return x.replace(/\s/g, k)
+    }).split('\n').join(' NEW_LINE ').match(/\S+/g) || [];
+    this.tokens.forEach(function(element, index, array) {
+      array[index] = element.replace(k, ' ')
+    })
     this.currentTokenIdx = 0;
     this.line = 1;
     this.column = 0;

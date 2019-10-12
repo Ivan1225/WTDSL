@@ -1,145 +1,103 @@
 import Tokenizer from "../libs/Tokenizer";
 import Tokens from "../libs/Tokens";
-import { ParserError } from "../errors/ParserError";
 import { EvaluationError } from "../errors/EvaluationError";
 import Utils from "../libs/Utils";
 import {Node} from "./Node";
+import { ParserError } from "../errors/ParserError";
 
-export default class Value {
+export default class Value extends Node {
+    
+    val: any;
 
-    val: any
-    type: ValueType;
-
-    constructor(val, type) {
-        this.val = val;
-        this.type = type;
-    }
-
-    public getVal() {
-        return this.val;
-    }
-
-    public getType() {
-        return this.type;
-    }
-
-    public static getValue(tokenizer: Tokenizer) {
-        if (tokenizer.top().match(Tokens.VARIABLENAME)) {
-            return this.getVaraibleName(tokenizer);
+    parse(tokenizer: Tokenizer) {
+        let token = tokenizer.top();
+        if (token.match(Tokens.STRINGVAL)) {
+            this.val = new StringVal();
+        }else if (token.match(Tokens.ATTRIBUTE)) {
+            this.val = new Attribute();
+        }else if (token.match(Tokens.NUMMBERVAL)) {
+            this.val = new NumberVAl();
+        } else {
+            this.val = new VariableName();
         }
-
-        return VariableValue.getVariableValue(tokenizer);
-    }
-
-    public static getVaraibleName(tokenizer: Tokenizer) {
-        if (!tokenizer.top().match(Tokens.VARIABLENAME)) {
-            let currentLine = tokenizer.getLine();
-            throw new ParserError(`Invalid variable name at line ${currentLine}.`);
-        }
-
-        return new Value(tokenizer.pop(), ValueType.VariableName);
+        this.val.parse(tokenizer);
     }
 
 	public async evaluate() {
-		switch(this.type) {
-			case ValueType.Number || ValueType.String:
-				return this.val;
-			case ValueType.AttributeName:
-				let att = await Node.page.$eval(Node.selector, (e, v) => e[v], this.val);
-				return att;
-
-			case ValueType.VariableName:
-				if(this.val in Node.nameTable) {
-					return Node.nameTable[this.val];
-				} else {
-					throw new EvaluationError('Variable ' + this.val + ' is undefined.');
-				}
-			default:
-				throw new EvaluationError('Unable to resolve value, ' + this.val + ' of type, ' + this.type);
-				
-		}
-			
+		return this.val.evaluate();
 	}
 }
 
-export class VariableValue extends Value {
-   
-    public static getVariableValue(tokenizer: Tokenizer) {
+export class NumberVAl extends Node {
+
+    val: any;
+    
+    parse(tokenizer: Tokenizer) {
         let currentLine = tokenizer.getLine();
         let token = tokenizer.top();
-
-        if (token.match(Tokens.NUMMBER)) {
-            return NumberValue.getNumberValue(tokenizer);
-        }
-
-        if (token.match(Tokens.ATTRIBUTE)) {
-            return AtrributeName.getAttributeName(tokenizer);
-        }
-
-        if (token.match(Tokens.STRING) || token.match(Tokens.STRINGSTART)) {
-            return StringValue.getStringValue(tokenizer);
-        }
-
-        throw new ParserError(`Invalid value at line ${currentLine}.`);
-        
-    }
-    
-}
-
-export class StringValue extends VariableValue{
-    public static getStringValue(tokenizer: Tokenizer) {
-        let currentLine = tokenizer.getLine();
-        if (tokenizer.top().match(Tokens.STRING)) {
-            let token = tokenizer.pop();
-            return new Value(Utils.trimQuotationMark(token), ValueType.String);
-        }
-
-        if (!tokenizer.top().match(Tokens.STRINGSTART)) {
-            throw new ParserError(`Invalid string value at line ${currentLine}.`);
-        }
-
-        let rst = Utils.trimbeginQuotationMark(tokenizer.pop());
-
-        while(tokenizer.top().match(Tokens.STRINGMIDDLE) && !tokenizer.top().match(Tokens.STRINGEND)) {
-            rst += (" " + tokenizer.pop());
-
-            if (tokenizer.top() == null) {
-                throw new ParserError(`Invalid string value at line ${currentLine}.`);
-            }
-        }
-
-        rst += " " + Utils.trimEndQuotationMark(tokenizer.pop());
-        
-        return new Value(rst, ValueType.String);
-    }
-}
-
-export class NumberValue extends VariableValue {
-    public static getNumberValue(tokenizer: Tokenizer) {
-        if (!tokenizer.top().match(Tokens.NUMMBER)) {
-            let currentLine = tokenizer.getLine();
+        if (token.match(Tokens.NUMMBERVAL)) {
+            this.val = tokenizer.pop();
+        } else {
             throw new ParserError(`Invalid number value at line ${currentLine}.`);
         }
-
-        return new Value(parseInt(tokenizer.pop()), ValueType.Number);
+    }    
+    
+    evaluate() {
+        return Promise.resolve(this.val)
     }
 }
 
-export class AtrributeName extends VariableValue {
-    public static getAttributeName(tokenizer: Tokenizer) {
-        if (!tokenizer.top().match(Tokens.ATTRIBUTE)) {
-            let currentLine = tokenizer.getLine();
-            throw new ParserError(`Invalid Atrribute at line ${currentLine}.`);
+export class StringVal extends Node {
+    
+    val: string;
+    
+    parse(tokenizer: Tokenizer) {
+        let currentLine = tokenizer.getLine();
+        let token = tokenizer.top();
+        if (token.match(Tokens.STRINGVAL)) {
+            this.val = Utils.trimQuotationMark(tokenizer.pop());
+        } else {
+            throw new ParserError(`Invalid string value at line ${currentLine}.`);
         }
-
-        return new Value(Utils.trimBrackets(tokenizer.pop()), ValueType.AttributeName);
+    }    
+    
+    async evaluate() {
+        return Promise.resolve(this.val)
     }
 }
 
+export class Attribute extends Node {
 
-export enum ValueType{
-    Number = 0,
-    String = 1,
-    AttributeName = 2,
-    VariableName = 3
+    attributeName: any
+    
+    parse(tokenizer: Tokenizer) {
+        let currentLine = tokenizer.getLine();
+        let token = tokenizer.top();
+        if (token.match(Tokens.ATTRIBUTE)) {
+            this.attributeName = Utils.trimBrackets(tokenizer.pop());
+        } else {
+            throw new ParserError(`Invalid Attribute value at line ${currentLine}.`);
+        }
+    }    
+    
+    async evaluate() {
+        return Node.page.$eval(Node.selector, (e, v) => e[v], this.attributeName);
+    }
+}
+
+export class VariableName extends Node {
+
+    name: string;
+    
+    parse(tokenizer: Tokenizer) {
+        this.name = tokenizer.pop();
+    }    
+    
+    async evaluate() {
+        if(this.name in Node.nameTable) {
+            return Node.nameTable[this.name];
+        } else {
+            return Promise.reject(new EvaluationError('Variable ' + this.name + ' is undefined.'));
+        }
+    }
 }
