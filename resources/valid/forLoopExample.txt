@@ -1,4 +1,4 @@
-Visit "https://www.wolframalpha.com/input/?i=add+"
+Visit https://www.wolframalpha.com/input/?i=add+
 Wait 8
 For each in ({#examples},{#random})
 Expect [viewBox] should be "_2HkkNXzH _3M2f798c _1mp00ZLS"
