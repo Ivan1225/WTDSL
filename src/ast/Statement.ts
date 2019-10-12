@@ -30,10 +30,10 @@ export default abstract class Statement extends Node {
                 return new Fill();
             case Tokens.EXPECT:
                 return new Assertion();
-            case Tokens.VALUE:
-                return new ValDef();
             case Tokens.WITHIN:
                 return new Within();
+            case Tokens.VALUE:
+                return new ValDef();
             case Tokens.FOR:
                 return new Loop();
             default:

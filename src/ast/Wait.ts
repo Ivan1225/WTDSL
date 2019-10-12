@@ -8,8 +8,14 @@ export default class Wait extends Node{
 
     public parse(tokenizer: Tokenizer) {
       let currentLine = tokenizer.getLine();
-      tokenizer.pop();
-      let token = tokenizer.pop();
+      let token = tokenizer.top();
+        if (token !== Tokens.WAIT) {
+            throw new ParserError(`Invalid token at line ${currentLine}. Parser was expecting: [Wait] and received: [${token}] instead`);
+        }
+        tokenizer.pop();
+
+
+      token = tokenizer.pop();
         if (token.match(Tokens.NUMMBERVAL)) {
           this.latency = Number(token);
         } else {

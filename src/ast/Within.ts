@@ -2,26 +2,26 @@ import { Node } from "./Node";
 import Tokenizer from "../libs/Tokenizer";
 import Tokens from "../libs/Tokens";
 import { ParserError } from "../errors/ParserError";
-import Utils from "../libs/Utils";
 import Statement from "./Statement";
+import { Selector } from "./Selector";
 
 export default class Within extends Node {
 
-    selector: string;
+    selector: Selector;
     statements: Node[] = [];
     
     public parse(tokenizer: Tokenizer) {
-        tokenizer.pop();
         let currentLine = tokenizer.getLine();
-
         let token = tokenizer.top();
-        if (!token.match(Tokens.SELECTOR)) {
-            throw new ParserError(`Invalid Selector format at line ${currentLine}. Parser was expecting: [{selector}] and received: [${token}] instead`);
+        if (token !== Tokens.WITHIN) {
+            throw new ParserError(`Invalid token at line ${currentLine}. Parser was expecting: [Within] and received: [${token}] instead`);
         }
+        tokenizer.pop();
 
-        this.selector = Utils.trimBrackets(tokenizer.pop());
+        this.selector = new Selector();
+        this.selector.parse(tokenizer);
 
-        while(tokenizer.hasNext() && tokenizer.top() !== Tokens.ENDWITHIN && tokenizer.top() !== null) {
+        while(tokenizer.hasNext() && tokenizer.top() !== Tokens.ENDWITHIN) {
             let s: Node = Statement.getSubStatement(tokenizer);
             s.parse(tokenizer);
             this.statements.push(s);
@@ -34,7 +34,7 @@ export default class Within extends Node {
     }    
     
     public async evaluate() {
-        Node.addWithinPrefix(this.selector);
+        Node.addWithinPrefix(this.selector.name);
         for (var s of this.statements) {
 			await s.evaluate();
 		}

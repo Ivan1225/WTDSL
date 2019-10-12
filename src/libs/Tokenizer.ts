@@ -38,6 +38,11 @@ export default class Tokenizer {
     let k = '$HAHA$'
     this.tokens = this.program.replace(/".*"/g, function(x) {
       return x.replace(/\s/g, k)
+    }).replace(/\({.*}(,\s{.*})*\)/g, function(x) {
+      return x.replace(/,/g, ' ')
+    }).
+    replace(/\({|}\)/g, function(x) {
+      return x.substring(0, 1) + ' ' + x.substring(1)
     }).split('\n').join(' NEW_LINE ').match(/\S+/g) || [];
     this.tokens.forEach(function(element, index, array) {
       array[index] = element.replace(k, ' ')

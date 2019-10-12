@@ -1,4 +1,4 @@
-Visit "https://www.ubc.ca"
+Visit https://www.ubc.ca
 Wait 5
 Select {#menu-about}
 Value of test is "About UBC"

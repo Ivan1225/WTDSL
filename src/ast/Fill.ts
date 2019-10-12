@@ -1,13 +1,21 @@
 import Tokenizer from "../libs/Tokenizer";
 import {Node} from "./Node";
 import Value from "./Value";
+import Tokens from "../libs/Tokens";
+import { ParserError } from "../errors/ParserError";
 
 export default class Fill extends Node{
     
     value: Value;
 
     public parse(tokenizer: Tokenizer) {
-		tokenizer.pop();
+        let currentLine = tokenizer.getLine();
+        let token = tokenizer.top();
+        if (token !== Tokens.FILL) {
+            throw new ParserError(`Invalid token at line ${currentLine}. Parser was expecting: [Fill] and received: [${token}] instead`);
+        }
+        tokenizer.pop();
+
     this.value = new Value();
     this.value.parse(tokenizer);
     }
