@@ -1,9 +1,6 @@
 import * as chai from 'chai';
 import { WTProgram } from "../../src/dsl/WTProgram";
 
-import {ProgramOutputStatus} from '../../src/dsl/ProgramOutput';
-
-
 const expect = chai.expect;
 
 describe('DSL should be able to parse', () => {
