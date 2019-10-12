@@ -1,8 +1,6 @@
 import WithinStack from "../libs/WithinStack";
 import Program from "../ast/Program";
 import Tokenizer from "../libs/Tokenizer";
-import ProgramOutput from './ProgramOutput';
-import ProgramOutputStatus from './ProgramOutput';
 
 export class WTProgram {
 
