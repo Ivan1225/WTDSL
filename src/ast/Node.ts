@@ -40,15 +40,17 @@ export abstract class Node {
         let total : number = Node.testStats.total
         let failedArr = Node.failedTests;
         let testStatsSummary = `Ran ${total} test(s) in total; ${pass} test(s) passed; ${fail} test(s) failed`;
+        console.log(testStatsSummary);
         let failedTestsSummary = `Failed tests are: test ${failedArr.reduce((acc, curr) => `${curr}${acc ? `, ${acc}` : acc}`, '')}`
         let output = Node.output.concat([testStatsSummary]);
         if (Node.failedTests.length > 0) {
+            console.log(failedTestsSummary);
             output.push(failedTestsSummary);
         }
         let date = new Date();
         fs.writeFileSync(path.join(__dirname, "../../resources/output/testResult.txt"), `${date.getFullYear()}/${date.getMonth()}/${date.getDate()}\n`)
         output.map(data => {
-            console.log(data);
+            // console.log(data);
             fs.appendFileSync(path.join(__dirname, "../../resources/output/testResult.txt"), `${data}\n`);
         });
     }

@@ -24,7 +24,7 @@ export class WTProgram {
             // console.log("Parse success");
             this.programStatus = ProgramStatus.PARSERSUCCESS;
         } catch(e){
-            console.log(e);
+            console.log(e.message);
             this.programStatus = ProgramStatus.PARSERFAIL;
         } finally {
             return this.programStatus;
@@ -38,7 +38,7 @@ export class WTProgram {
             that.programStatus = ProgramStatus.SUCCESS;
         } catch(e) {
             that.programStatus = ProgramStatus.EVALUATIONFAIL;
-            console.log(e)
+            console.log(e.message)
         } finally {
             return this.programStatus;
         }
