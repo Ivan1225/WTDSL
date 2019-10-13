@@ -1,0 +1,5 @@
+Visit https://www.wolframalpha.com/input/?i=add+
+Wait 8
+For each in ({#examples},{#random})
+Expect [class] should be "_2HkkNXzH _3M2f798c _1mp00ZLS"
+EndFor

@@ -59,6 +59,7 @@ typings/
 
 # vscode setting folder
 .vscode
+.vs
 
 yarn.lock
 

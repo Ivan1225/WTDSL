@@ -1,0 +1,9 @@
+Visit www.ubc.ca
+Wait 5
+Select {.spotlight}
+Value of ImgLink is "https://extendedlearning.ubc.ca/study-topic/one-day-ubc"
+Within {.spotlight:first-of-type}
+Expect [class] should not contain "spotlight_social"
+Select {.spotlight_image}
+Expect [url] should be ImgLink
+EndWithin

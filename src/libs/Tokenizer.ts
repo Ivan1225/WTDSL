@@ -20,9 +20,7 @@ export default class Tokenizer {
   }
 
   public static makeTokenizer(fileName: string) {
-    if (Tokenizer.theTokenizer == null) {
-      this.theTokenizer = new Tokenizer(fileName);
-    }
+    this.theTokenizer = new Tokenizer(fileName);
   }
 
   private constructor(fileName: string) {
@@ -35,7 +33,18 @@ export default class Tokenizer {
   }
 
   private tokenize() {
-    this.tokens = this.program.split('\n').join(' NEW_LINE ').match(/\S+/g) || [];
+    let k = '$HAHA$'
+    this.tokens = this.program.replace(/".*"/g, function(x) {
+      return x.replace(/\s/g, k)
+    }).replace(/\({.*}(,\s{.*})*\)/g, function(x) {
+      return x.replace(/,/g, ' ')
+    }).
+    replace(/\({|}\)/g, function(x) {
+      return x.substring(0, 1) + ' ' + x.substring(1)
+    }).split('\n').join(' NEW_LINE ').match(/\S+/g) || [];
+    this.tokens.forEach(function(element, index, array) {
+      array[index] = element.replace(/\$HAHA\$/g, ' ')
+    })
     this.currentTokenIdx = 0;
     this.line = 1;
     this.column = 0;

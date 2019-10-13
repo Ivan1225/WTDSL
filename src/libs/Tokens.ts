@@ -4,6 +4,8 @@ export default class Tokens {
     public static ENDWITHIN = "EndWithin";
 
     public static FOR = "For";
+    
+    public static EACH = "each";
 
     public static ENDFOR = "EndFor";
 
@@ -39,18 +41,15 @@ export default class Tokens {
 
     public static FROM = "from";
 
-    public static STRING = "^\".*\"";
+    public static STRINGVAL = "^\".*\"";
 
-    public static NUMMBER = "^[1-9]\d*$";
+    public static NUMMBERVAL = "^[1-9]\d*$";
 
     public static VARIABLENAME = "^[a-zA-Z0-9_-]+";
 
-    public static STRINGSTART= "^\".*";
-   
-    public static STRINGMIDDLE= "^.*";
+    public static SELECTOR = "^{.*}";
 
-    public static STRINGEND= "^.*\"";
-
-    public static SELECTOR = "^{.*}"
-
+    public static SELECTORLISTSTART = "(";
+    
+    public static SELECTORLISTEND = ")";
 }

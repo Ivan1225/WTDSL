@@ -1,4 +1,4 @@
-Visit "https://www.ubc.ca"
+Visit https://www.ubc.ca
 Wait 5
 Select {#menu-about}
 Value of test is "About UBC"
@@ -11,9 +11,9 @@ Wait 5
 Select {button[data-target="#ubc7-global-menu"]}
 Click
 Wait 5
-Expect [class] should contain "expand"
+Expect [data-toggle] should contain "cllapse"
 Within {.expand.in.collapse}
-Select {input}
+Select {input.input-xlarge.search-query}
 Fill "cpsc"
 Select {button}
 Click
