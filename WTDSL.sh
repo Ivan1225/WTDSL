@@ -1,5 +1,6 @@
 #!/bin/bash
 echo "Building the DSL"
+yarn install
 yarn build
 
 echo "Starting WTDSL"
