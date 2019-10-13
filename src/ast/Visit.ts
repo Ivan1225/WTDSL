@@ -22,8 +22,9 @@ export default class Visit extends Node{
     }
 
     public async evaluate() {
-		console.log(this.url);
-		await Node.page.goto(this.url);
+    Node.printOutput(`loading this page:  ${this.url}`);
+    await Node.page.goto(this.url);
+    Node.printOutput(`loaded this page:  ${this.url}`);
     }
 
     private validURL(str) {

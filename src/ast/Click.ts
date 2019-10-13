@@ -15,7 +15,9 @@ export default class Click extends Node {
     }    
     
     public async evaluate() {
+        Node.printOutput(`Tring click on ${Node.selector}.`)
         await Node.page.click(Node.selector);
+        Node.printOutput(`Clicked on ${Node.selector}.`)
     }
 
 }

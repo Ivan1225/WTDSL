@@ -24,9 +24,9 @@ export default class Wait extends Node{
     }
 
     public async evaluate() {
-		console.log('begin wait');
+    Node.printOutput(`starting wait ${this.latency} seconds`);
 		let ms_latency = this.latency*1000;
-		await Node.page.waitFor(ms_latency);
-		console.log('end wait');
+    await Node.page.waitFor(ms_latency);
+    Node.printOutput(`waited ${this.latency} seconds`);
     }
 }

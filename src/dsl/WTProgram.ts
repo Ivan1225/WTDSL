@@ -1,4 +1,3 @@
-import WithinStack from "../libs/WithinStack";
 import Program from "../ast/Program";
 import Tokenizer from "../libs/Tokenizer";
 
@@ -6,8 +5,8 @@ export class WTProgram {
 
     source: string;
     tokenizer: Tokenizer;
-    static variablesTable: Map<string, any>;
-    withinStack: WithinStack<string>;
+    wtProgram: Program;
+    programStatus: ProgramStatus;
 
     /**
      *  fileName: input program file path
@@ -15,33 +14,41 @@ export class WTProgram {
     constructor(filePath: string) {
         Tokenizer.makeTokenizer(filePath)
         this.tokenizer = Tokenizer.getTokenizer();
+        this.wtProgram = new Program();
+        this.programStatus = ProgramStatus.initialize;
     }
 
     public parse() {
-        var wtProgram: Program = new Program();
         try{
-            wtProgram.parse(this.tokenizer);
-            console.log("Parse success");
-            return true;
+            this.wtProgram.parse(this.tokenizer);
+            // console.log("Parse success");
+            this.programStatus = ProgramStatus.ParserSuccess;
         } catch(e){
             console.log(e);
-            return false;
+            this.programStatus = ProgramStatus.ParserFail;
+        } finally {
+            return this.programStatus;
         }
-		// print output
     }
 
-    /**
-     * run
-     */
-    public run() {
-        var wtProgram: Program = new Program();
+    public async evaluation() {
+        let that = this;
         try{
-			wtProgram.parse(this.tokenizer);
-            wtProgram.evaluate();
-        } catch(e){
+            await this.wtProgram.evaluate();
+            that.programStatus = ProgramStatus.success;
+        } catch(e) {
+            that.programStatus = ProgramStatus.EvaluationFail;
             console.log(e)
+        } finally {
+            return this.programStatus;
         }
-		// print output
     }
+}
 
+export enum ProgramStatus {
+    initialize,
+    success,
+    ParserSuccess,
+    ParserFail,
+    EvaluationFail
 }

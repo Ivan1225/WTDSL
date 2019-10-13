@@ -60,8 +60,9 @@ export default class Loop extends Node {
     }
 
     public async evaluate() {
-        console.log(this.selectors);
-        console.log('begin evaluate loop');
+        // console.log(this.selectors);
+        // console.log('begin evaluate loop');
+        // Node.printOutput(`Strating loop on list: ${this.selectors.forEach(v=> {return v.name})}`)
         var index =0;
         while(index<this.selectors.length){
             await this.selectors[index].evaluate();
@@ -70,7 +71,8 @@ export default class Loop extends Node {
             }
             index++;
         }
-        console.log('End evaluate loop');
+        // Node.printOutput(`End loop on list`)
+        // console.log('End evaluate loop');
     }
 
 

@@ -22,6 +22,7 @@ export default class Fill extends Node{
 
     public async evaluate() {
       this.value.evaluate().then((val) => {
+        Node.printOutput(`Tring fill ${val} on element: ${Node.selector}`)
         return Node.page.keyboard.type(val);
       }).catch(e => {
         return Promise.reject(e)

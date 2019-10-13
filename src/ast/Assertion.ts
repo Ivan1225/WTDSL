@@ -56,6 +56,7 @@ export default class Assertion extends Node {
     public async evaluate() {
         let resolvedValue = await this.expectValue.evaluate()
         let attributeVal = await this.targetAttribute.evaluate();
+        Node.printOutput(`For element ${Node.selector}, compare actual value: ${attributeVal} ${this.assertionType} expect value: ${resolvedValue}`)
         switch (this.assertionType) {
             case AssertionType.Be:
                 this.assertionHelper(attributeVal === resolvedValue);
@@ -79,8 +80,8 @@ export default class Assertion extends Node {
 
 
 export enum AssertionType{
-    Be,
-    NotBe,
-    Contain,
-    NotContain
+    Be = 'equal to',
+    NotBe = 'not equal to',
+    Contain = 'cotain',
+    NotContain = 'not contain'
 }

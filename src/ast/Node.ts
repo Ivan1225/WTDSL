@@ -8,6 +8,7 @@ export abstract class Node {
 	public static selector;
     public static page;
     public static withinPrefixes: string[] = [];
+    public static output: string[] = []
     protected static testStats: {[key: string]: number} = {
         total: 0,
         pass: 0,
@@ -17,14 +18,22 @@ export abstract class Node {
     protected static testPass() {
         Node.testStats.total += 1;
         Node.testStats.pass += 1;
-		console.log('passed test');
+        console.log('passed test');
+        Node.output.push('passed test')
     }
     protected static testFail() {
         Node.testStats.total += 1;
         Node.testStats.fail += 1;
         Node.failedTests.push(Node.testStats.total);
-		console.log('failed test');
+        console.log('failed test');
+        Node.output.push('failed test')
     }
+
+    protected static printOutput(str: string) {
+        console.log(str);
+        Node.output.push(str);
+    }
+
     protected static printResult() {
         let pass : number = Node.testStats.pass;
         let fail : number = Node.testStats.fail;
@@ -32,7 +41,7 @@ export abstract class Node {
         let failedArr = Node.failedTests;
         let testStatsSummary = `Ran ${total} test(s) in total; ${pass} test(s) passed; ${fail} test(s) failed`;
         let failedTestsSummary = `Failed tests are: test ${failedArr.reduce((acc, curr) => `${curr}${acc ? `, ${acc}` : acc}`, '')}`
-        let output = [testStatsSummary];
+        let output = Node.output.concat([testStatsSummary]);
         if (Node.failedTests.length > 0) {
             output.push(failedTestsSummary);
         }
