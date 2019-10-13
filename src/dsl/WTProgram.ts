@@ -15,17 +15,17 @@ export class WTProgram {
         Tokenizer.makeTokenizer(filePath)
         this.tokenizer = Tokenizer.getTokenizer();
         this.wtProgram = new Program();
-        this.programStatus = ProgramStatus.initialize;
+        this.programStatus = ProgramStatus.INITIALIZE;
     }
 
     public parse() {
         try{
             this.wtProgram.parse(this.tokenizer);
             // console.log("Parse success");
-            this.programStatus = ProgramStatus.ParserSuccess;
+            this.programStatus = ProgramStatus.PARSERSUCCESS;
         } catch(e){
             console.log(e);
-            this.programStatus = ProgramStatus.ParserFail;
+            this.programStatus = ProgramStatus.PARSERFAIL;
         } finally {
             return this.programStatus;
         }
@@ -35,9 +35,9 @@ export class WTProgram {
         let that = this;
         try{
             await this.wtProgram.evaluate();
-            that.programStatus = ProgramStatus.success;
+            that.programStatus = ProgramStatus.SUCCESS;
         } catch(e) {
-            that.programStatus = ProgramStatus.EvaluationFail;
+            that.programStatus = ProgramStatus.EVALUATIONFAIL;
             console.log(e)
         } finally {
             return this.programStatus;
@@ -46,9 +46,9 @@ export class WTProgram {
 }
 
 export enum ProgramStatus {
-    initialize,
-    success,
-    ParserSuccess,
-    ParserFail,
-    EvaluationFail
+    INITIALIZE,
+    SUCCESS,
+    PARSERSUCCESS,
+    PARSERFAIL,
+    EVALUATIONFAIL
 }
