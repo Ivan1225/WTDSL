@@ -16,8 +16,6 @@ Make sure that you have:
 # EBNFs
 
 ```
-
-EBNF:	
 PROGRAM ::== VISIT STATEMENT*
 
 STATEMENT ::== [VISIT | SELECT | EVENT | ASSERTION | WITHIN | VALDEF | LOOP]
