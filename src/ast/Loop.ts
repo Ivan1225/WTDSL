@@ -2,9 +2,7 @@ import {Node} from "./Node";
 import Tokenizer from "../libs/Tokenizer";
 import Tokens from "../libs/Tokens";
 import {ParserError} from "../errors/ParserError";
-import Utils from "../libs/Utils";
 import Statement from "./Statement";
-import Select from "./Select";
 import { Selector } from "./Selector";
 
 export default class Loop extends Node {
