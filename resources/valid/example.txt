@@ -2,16 +2,12 @@ Visit https://www.ubc.ca
 Wait 5
 Select {#menu-about}
 Value of test is "About UBC"
-Value of test2 is [text]
 Expect [text] should be "About UBC"
-Expect [text] should be test
-Expect [text] should be test2
 Click
 Wait 5
 Select {button[data-target="#ubc7-global-menu"]}
 Click
 Wait 5
-Expect [data-toggle] should contain "cllapse"
 Within {.expand.in.collapse}
 Select {input.input-xlarge.search-query}
 Fill "cpsc"

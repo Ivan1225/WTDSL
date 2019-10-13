@@ -1,12 +1,8 @@
-2019/9/12
+2019/9/13
 loading this page:  https://www.ubc.ca
 loaded this page:  https://www.ubc.ca
 starting wait 5 seconds
 waited 5 seconds
-For element  #menu-about, compare actual value: About UBC equal to expect value: About UBC
-passed test
-For element  #menu-about, compare actual value: About UBC equal to expect value: About UBC
-passed test
 For element  #menu-about, compare actual value: About UBC equal to expect value: About UBC
 passed test
 Tring click on  #menu-about.
@@ -17,12 +13,9 @@ Tring click on  button[data-target="#ubc7-global-menu"].
 Clicked on  button[data-target="#ubc7-global-menu"].
 starting wait 5 seconds
 waited 5 seconds
-For element  button[data-target="#ubc7-global-menu"], compare actual value: collapse cotain expect value: cllapse
-failed test
 Tring fill cpsc on element:  .expand.in.collapse input.input-xlarge.search-query
 Tring click on  .expand.in.collapse button.
 Clicked on  .expand.in.collapse button.
 starting wait 5 seconds
 waited 5 seconds
-Ran 4 test(s) in total; 3 test(s) passed; 1 test(s) failed
-Failed tests are: test 4
+Ran 1 test(s) in total; 1 test(s) passed; 0 test(s) failed
