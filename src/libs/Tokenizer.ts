@@ -43,7 +43,7 @@ export default class Tokenizer {
       return x.substring(0, 1) + ' ' + x.substring(1)
     }).split('\n').join(' NEW_LINE ').match(/\S+/g) || [];
     this.tokens.forEach(function(element, index, array) {
-      array[index] = element.replace(k, ' ')
+      array[index] = element.replace(/\$HAHA\$/g, ' ')
     })
     this.currentTokenIdx = 0;
     this.line = 1;
