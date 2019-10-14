@@ -5,6 +5,8 @@ This is Web Testing Dsl, which for people with limit knowledge of programming. W
 * Simple: The syntax of code is easy to use and understand
 * Useful: Doing repeated test job for you, also provide visualization of test step.
 
+![WTDSL Demo](./resources/demo.gif)
+
 # Setup
 
 Make sure that you have:
