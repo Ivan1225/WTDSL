@@ -88,7 +88,7 @@ EndWithin
 Wait 5
 ```
 
-Expalin of code:
+Explain of code:
 
 It will open the www.ubc.ca link first. Wait for 5 seconds for the page loading. It will select element with css “#menu-about” and compare if its text value should be “About UBC”. And then, it will click the element. It will wait 5 second for the page loading. Then choose element "button[data-target="#ubc7-global-menu"]" and click it again. Wait 5 second for load, Then, it restricts the test area to be inside of the element with css “.expand.in.collapse”. Then it find the input field of search bar, and fill in “cpsc”. Then, it clicks the submit button. It will wait for another 5 seconds for the page loading.
 
